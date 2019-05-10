@@ -11,12 +11,11 @@ class Flashcard {
     this.containerElement = containerElement;
     this.drag = false;
 
-    this._flipCard = this._flipCard.bind(this);
+    this.flipCard = this.flipCard.bind(this);
 
     this.flashcardElement = this._createFlashcardDOM(frontText, backText);
     this.containerElement.append(this.flashcardElement);
 
-    this.flashcardElement.addEventListener('pointerup', this._flipCard);
   }
 
   // Creates the DOM object representing a flashcard with the given
@@ -52,7 +51,7 @@ class Flashcard {
     return cardContainer;
   }
 
-  _flipCard(event) {
+  flipCard(event) {
     this.flashcardElement.classList.toggle('show-word');
   }
 

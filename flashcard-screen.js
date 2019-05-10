@@ -32,6 +32,7 @@ class FlashcardScreen {
     const wrongStat = this.containerElement.querySelector('.incorrect');
 
     this.flashcardContainer.addEventListener('pointerdown', event => {
+      this.click = true;
       this.drag = true;
       this.origin = {
         x: event.clientX,
@@ -42,6 +43,7 @@ class FlashcardScreen {
     });
 
     this.flashcardContainer.addEventListener('pointermove', event => {
+      this.click = false;
       if (this.drag) {
         const delta = getDelta(event);
         event.currentTarget.style.transform = `translate(${delta.x}px, ${delta.y}px) rotate(${0.2 * delta.x}deg)`;
@@ -60,6 +62,7 @@ class FlashcardScreen {
     })
 
     this.flashcardContainer.addEventListener('pointerup', event => {
+      if(this.click) this.card.flipCard();
       this.drag = false;
       event.currentTarget.releasePointerCapture(event.pointerId)
       const delta = getDelta(event);
@@ -99,7 +102,7 @@ class FlashcardScreen {
   }
 
   reNewCard() {
-    if(this.keyIndex >= this.keys.length) return this.switchScreen();
+    if (this.keyIndex >= this.keys.length) return this.switchScreen();
     if (this.card) this.card.remove();
     const key = this.keys[this.keyIndex++];
     this.card = new Flashcard(this.flashcardContainer, key, this.words[key]);
