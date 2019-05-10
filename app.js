@@ -10,13 +10,23 @@
 class App {
   constructor() {
     const menuElement = document.querySelector('#menu');
-    this.menu = new MenuScreen(menuElement);
+    this.menu = new MenuScreen(menuElement, title => {
+      this.menu.hide();
+      this.flashcards.show(title);
+    });
 
     const mainElement = document.querySelector('#main');
-    this.flashcards = new FlashcardScreen(mainElement);
+    this.flashcards = new FlashcardScreen(mainElement, () => {
+      this.flashcards.hide();
+      this.results.show();
+    });
 
     const resultElement = document.querySelector('#results');
-    this.results = new ResultsScreen(resultElement);
+    this.results = new ResultsScreen(resultElement, title => {
+      this.results.hide();
+      if(title) this.flashcards.show(title);
+      else this.menu.show();
+    });
 
     // Uncomment this pair of lines to see the "flashcard" screen:
     // this.menu.hide();

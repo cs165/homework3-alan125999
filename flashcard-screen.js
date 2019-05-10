@@ -8,17 +8,22 @@
 // - Adding additional fields
 
 class FlashcardScreen {
-  constructor(containerElement) {
+  constructor(containerElement, switchScreen) {
     this.containerElement = containerElement;
+    this.switchScreen = switchScreen;
   }
 
-  show() {
+  show(title) {
     this.containerElement.classList.remove('inactive');
     const flashcardContainer = document.querySelector('#flashcard-container');
+    this.words = FLASHCARD_DECKS.find(value => value.title === title);
+    this.keyIndex = 0;
     const card = new Flashcard(flashcardContainer, 'word', 'definition');
   }
 
   hide() {
     this.containerElement.classList.add('inactive');
   }
+
+  
 }

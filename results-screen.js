@@ -7,8 +7,9 @@
 // - Adding additional fields
 
 class ResultsScreen {
-  constructor(containerElement) {
+  constructor(containerElement, switchScreen) {
     this.containerElement = containerElement;
+    this.switchScreen = switchScreen;
   }
 
   show(numberCorrect, numberWrong) {
