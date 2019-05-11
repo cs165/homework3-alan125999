@@ -9,13 +9,10 @@
 class Flashcard {
   constructor(containerElement, frontText, backText) {
     this.containerElement = containerElement;
-    this.drag = false;
 
     this.flipCard = this.flipCard.bind(this);
 
-    this.flashcardElement = this._createFlashcardDOM(frontText, backText);
-    this.containerElement.append(this.flashcardElement);
-
+    this.renew(frontText, backText);
   }
 
   // Creates the DOM object representing a flashcard with the given
@@ -44,7 +41,7 @@ class Flashcard {
     const definitionSide = document.createElement('div');
     definitionSide.classList.add('flashcard');
     definitionSide.classList.add('definition');
-    definitionSide.textContent = backText;
+    definitionSide.textContent= backText;
 
     cardContainer.appendChild(wordSide);
     cardContainer.appendChild(definitionSide);
@@ -55,7 +52,9 @@ class Flashcard {
     this.flashcardElement.classList.toggle('show-word');
   }
 
-  remove() {
-    this.flashcardElement.remove();
+  renew(frontText, backText) {
+    if(this.flashcardElement) this.flashcardElement.remove();
+    this.flashcardElement = this._createFlashcardDOM(frontText, backText);
+    this.containerElement.append(this.flashcardElement);
   }
 }

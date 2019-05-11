@@ -7,18 +7,19 @@
 // - Adding additional fields
 
 class MenuScreen {
-  constructor(containerElement, switchScreen) {
+  constructor(containerElement, switchScreen, appState) {
     this.containerElement = containerElement;
     this.switchScreen = switchScreen;
-    this.generateMenu();
-  }
+    this.appState = appState;
 
-  generateMenu() {
     const choices = this.containerElement.querySelector('#choices');
     FLASHCARD_DECKS.map(({ title }) => {
       const choice = document.createElement('div');
       choice.textContent = title;
-      choice.addEventListener('click', () => this.switchScreen(title))
+      choice.addEventListener('click', () => {
+        this.appState.title = title;
+        this.switchScreen('main');
+      })
       choices.append(choice);
     })
   }
